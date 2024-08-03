@@ -30,7 +30,9 @@ export default {
     'bg-gradient-to-br from-slate-950 via-blue-950 to-blue-900 min-h-screen',  // 04:00
     'bg-gradient-to-b from-blue-950 via-blue-950 to-yellow-900 min-h-screen',  // 05:00
     'bg-opacity-0',
-    'bg-opacity-100'
+    'bg-opacity-100',
+    'opacity-100',
+    'opacity-0'
   ],
   theme: {
     extend: {}
