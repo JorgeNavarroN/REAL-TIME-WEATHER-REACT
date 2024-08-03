@@ -3,51 +3,14 @@ import { Weather } from './components/Wheater'
 import { Container } from './components/Container'
 import { LineForecast } from './components/LineForecast'
 import { Buscador } from './components/Buscador'
-import { useState, useEffect, useRef } from "react"
 import { useCurrentDateTime } from './services/utils/hooks/UseCurrentDateTime'
 import { Background } from "./components/Background"
 import { BuscadorModal } from './components/BuscadorModal'
 import { useBuscador } from "./services/utils/hooks/UseBuscador"
 
-const getWeatherByCityName = async (city) => {
-  const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_API_KEY}&units=metric&lang=es`)
-  const json = await res.json()
-  return {
-    temp: json?.main?.temp,
-    feels_like: json?.main?.feels_like,
-    temp_min: json?.main?.temp_min,
-    temp_max: json?.main?.temp_max,
-    wind: json?.wind,
-    humidity: json?.main?.humidity,
-    sea_level: json?.main?.sea_level,
-    grnd_level: json?.main?.grnd_level,
-    clouds: json?.clouds?.all,
-    weather: json?.weather[0],
-    timezone: json?.timezone,
-    ubic: json?.name + ' - ' + json?.sys?.country
-  }
-}
-
-const useClima = (city = 'New York') => {
-  const [cityName, setCityName] = useState(city)
-  const [objClima, setObjClima] = useState({})
-
-  useEffect(() => {
-    getWeatherByCityName(cityName).then(setObjClima)
-  }, [cityName])
-
-  return { res: objClima, setCityName }
-}
-
 function App() {
-  const { res, setCityName } = useClima()
   const { dateTime } = useCurrentDateTime({})
-  const { isOpen, opacity, handleOpen, handleClose } = useBuscador()
-
-
-  const handleSearchLocation = (inputRef) => {
-    setCityName(inputRef.current.value)
-  }
+  const { res, isOpen, inputRef, opacity, handleBuscar, handleOpen, handleClose } = useBuscador()
 
   return (
     <Background dateTime={dateTime} timezone={res.timezone}>
@@ -59,7 +22,7 @@ function App() {
           <Reloj timezone={res.timezone} />
         </Container>
       </article>
-      <BuscadorModal opacity={opacity} isOpen={isOpen} handleClose={handleClose} handleSearchLocation={handleSearchLocation} />
+      <BuscadorModal inputRef={inputRef} opacity={opacity} isOpen={isOpen} handleClose={handleClose} handleSearchLocation={handleBuscar} />
     </Background>
   )
 }
