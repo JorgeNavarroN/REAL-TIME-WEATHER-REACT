@@ -1,3 +1,4 @@
+import { capitalizarTexto } from "../services/utils/CapitalizarTexto";
 import { Container } from "./Container";
 import PropTypes from 'prop-types'
 
@@ -21,11 +22,6 @@ const getWindDirection = (deg) => {
     } else {
         return 'Norte'
     }
-}
-
-const capitalizarTexto = (str) => {
-    if (typeof str !== 'string' || str.length === 0) return
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
 export const Weather = ({ nameClass, objClima }) => {

@@ -1,8 +1,8 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useClima } from "./UseClima"
 
 export const useBuscador = () => {
-  const { res, query } = useClima()
+  const { res, resForecast, query } = useClima()
   const [isOpen, setIsOpen] = useState(true)
   const [opacity, setOpacity] = useState(0)
 
@@ -30,8 +30,8 @@ export const useBuscador = () => {
       return { err: 'isEmpty' }
     }
     const res = await query(inputRef.current.value)
-    console.log('Mi res: ', res)
-    if (res === 404) {
+    if (res === 404 || res === 500) {
+      console.log('Mi res UseBuscador: ', res)
       return { err: res }
     }
     inputRef.current.value = ''
@@ -39,5 +39,5 @@ export const useBuscador = () => {
     return { err: res }
   }
 
-  return { res, isOpen, inputRef, opacity, handleBuscar, handleOpen, handleClose }
+  return { res, resForecast, isOpen, inputRef, opacity, handleBuscar, handleOpen, handleClose }
 }

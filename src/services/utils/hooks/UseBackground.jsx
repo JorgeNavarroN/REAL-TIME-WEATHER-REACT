@@ -9,7 +9,7 @@ export const useBackground = ({ dateTime, timezone }) => {
   const [opacity, setOpacity] = useState(100)
 
   useEffect(() => {
-    if (!hourUTCTimezone) return
+    if (Number.isNaN(hourUTCTimezone)) return
     setOpacity(100)
     setTimeout(() => {
       setOpacity(0)

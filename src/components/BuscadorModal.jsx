@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useEffect } from "react"
 import { useAlert } from "../services/utils/hooks/UseAlert"
 import { SearchAlert } from "./SearchAlert"
 
@@ -13,10 +13,14 @@ export const BuscadorModal = ({ opacity, inputRef, isOpen, handleClose, handleSe
   }
 
   const handleClickSearch = async (e) => {
-    e.stopPropagation() 
+    e?.stopPropagation() 
     const res = await handleSearchLocation()
     if (res.err === 404) {
       handleShowAlert('Ciudad no encontrada, ingrese nuevamente')
+      return
+    }
+    if (res.err === 500) {
+      handleShowAlert('Lo sentimos, ha ocurrido un error en el servidor. Por favor, intentalo de nuevo más tarde')
       return
     }
     if (res.err === 'isEmpty') {
@@ -28,13 +32,30 @@ export const BuscadorModal = ({ opacity, inputRef, isOpen, handleClose, handleSe
       return
     }
   }
+  
+  const validateEnter = (event) => {
+    const tecla = event.key
+    if (tecla === "Enter") {
+      handleClickSearch()
+    }
+  }
+  
+  useEffect(() => {
+    if (isOpen) return
+    addEventListener('keyup', validateEnter)
+    inputRef.current.focus()
+
+    return () => {
+      removeEventListener('keyup', validateEnter)
+    }
+  }, [isOpen, inputRef])
 
   return (
     <div hidden={isOpen} onClick={handleClose} className={`bg-black/50 absolute opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity duration-300`}>
       <dialog open className="bg-transparent">
         <main className="my-20 flex flex-col gap-2 h-full">
           <div className="bg-slate-700 flex flex-row gap-5 text-white mx-auto box-border drop-shadow-lg backdrop-blur-xl hover:bg-slate-800 focus:bg-slate-800 rounded-full px-5 py-3 text-lg transition-colors duration-200">
-            <input onChange={handleOnChangeInput} ref={inputRef} onClick={handleClickInput} className="bg-transparent min-h-full min-w-96 outline-none" type="text" placeholder="Buscar: ejemplo - Londres, México, Perú" />
+            <input autoFocus={true} onChange={handleOnChangeInput} ref={inputRef} onClick={handleClickInput} className="bg-transparent min-h-full min-w-96 outline-none" type="text" placeholder="Buscar: ejemplo - Londres, México, Perú" />
             <img onClick={handleClickSearch} className="cursor-pointer" src="/src/assets/search-32.png" alt="" />
           </div>
           <SearchAlert text={textAlert} showAlert={showAlert} alertOpacity={alertOpacity} />
