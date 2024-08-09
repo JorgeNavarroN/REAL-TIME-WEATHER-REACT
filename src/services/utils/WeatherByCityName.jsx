@@ -1,7 +1,5 @@
 export const getWeatherByCityName = async ({ city, lat, lon }) => {
-  console.log(`/api/data/2.5/weather?${ city ? `q=${city}` : `lat=${lat}&lon=${lon}`}&appid=${import.meta.env.VITE_API_KEY}&units=metric&lang=es`)
   const res = await fetch(`/api/data/2.5/weather?${ city ? `q=${city}` : `lat=${lat}&lon=${lon}`}&appid=${import.meta.env.VITE_API_KEY}&units=metric&lang=es`)
-  console.log('CARNE DE RES: ', res.status)
   const json = await res.json().catch(() => {
     return { status: res.status }
   })

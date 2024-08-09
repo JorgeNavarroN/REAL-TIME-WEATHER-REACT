@@ -9,7 +9,6 @@ export const useClima = ({ cityName }) => {
   const query = async ({city, lat, lon}) => {
     const response = city ? await getWeatherByCityName({city}) : await getWeatherByCityName({lat, lon})
     if (response.status === 404 || response.status === 500) {
-      console.log('Estado: ', response.status)
       return response
     }
     getForecastByLonLat({ lat: response.coord.lat, lon: response.coord.lon }).then(setObjForecast)

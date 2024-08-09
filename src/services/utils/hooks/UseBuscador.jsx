@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useClima } from "./UseClima"
-import { useCoordsCurrentLocation } from "../UseCurrentLocation"
+import { useCoordsCurrentLocation } from "./UseCurrentLocation"
 import { useLocalstorage } from "./UseLocalStorage"
 
 export const useBuscador = () => {

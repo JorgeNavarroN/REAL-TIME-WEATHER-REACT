@@ -1,4 +1,4 @@
-import { useCoordsCurrentLocation } from "../services/utils/UseCurrentLocation"
+import { useCoordsCurrentLocation } from "../services/utils/hooks/UseCurrentLocation"
 
 export const Buscador = ({ onClickOpen, handleClickGeoLocation }) => {
     return (

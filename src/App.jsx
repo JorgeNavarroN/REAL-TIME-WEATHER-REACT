@@ -7,13 +7,10 @@ import { useCurrentDateTime } from './services/utils/hooks/UseCurrentDateTime'
 import { Background } from "./components/Background"
 import { BuscadorModal } from './components/BuscadorModal'
 import { useBuscador } from "./services/utils/hooks/UseBuscador"
-import { useLocalstorage } from "./services/utils/hooks/UseLocalStorage"
 
 function App() {
   const { dateTime } = useCurrentDateTime({})
   const { res, resForecast, isOpen, opacity, handleBuscar, handleBuscarUbicacionActual, handleOpen, handleClose } = useBuscador()
-
-  // console.log("Render")
 
   return (
     <Background dateTime={dateTime} timezone={res.timezone}>
