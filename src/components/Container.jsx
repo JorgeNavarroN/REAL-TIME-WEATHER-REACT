@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 export const Container = ({ children, nameClass, expandir }) => {
     const expandClass = expandir ? 'w-full h-full' : '';
     return (
-        <article className={`text-white ${nameClass} ${expandClass} bg-black/50 backdrop-blur-sm rounded-xl grid overflow-hidden ${expandClass} hover:bg-cyan-950 transition-colors duration-500`}>
+        <article className={`text-white ${nameClass} ${expandClass} bg-black/50 backdrop-blur-sm rounded-xl grid overflow-hidden ${expandClass} hover:bg-cyan-950 transition-colors`}>
             {children}
         </article>
     );

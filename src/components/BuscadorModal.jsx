@@ -1,10 +1,11 @@
 import { useEffect } from "react"
 import { useAlert } from "../services/utils/hooks/UseAlert"
 import { SearchAlert } from "./SearchAlert"
+import PropTypes from 'prop-types'
 
-export const BuscadorModal = ({ opacity, inputRef, isOpen, handleClose, handleSearchLocation }) => {
+export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
   const { textAlert, showAlert, alertOpacity, handleHideAlert, handleShowAlert } = useAlert()
-  
+
   const handleClickInput = (e) => e.stopPropagation()
 
   const handleOnChangeInput = (e) => {
@@ -12,9 +13,12 @@ export const BuscadorModal = ({ opacity, inputRef, isOpen, handleClose, handleSe
     handleShowAlert('Debe ingresar el nombre de una ciudad valida')
   }
 
-  const handleClickSearch = async (e) => {
-    e?.stopPropagation() 
-    const res = await handleSearchLocation()
+  const handleSubmitSearch = async (e) => {
+    e.preventDefault()
+    const formData = new window.FormData(e.target)
+    const busqueda = formData.get('busqueda')
+
+    const res = await handleSearch({ busqueda })
     if (res.err === 404) {
       handleShowAlert('Ciudad no encontrada, ingrese nuevamente')
       return
@@ -32,35 +36,20 @@ export const BuscadorModal = ({ opacity, inputRef, isOpen, handleClose, handleSe
       return
     }
   }
-  
-  const validateEnter = (event) => {
-    const tecla = event.key
-    if (tecla === "Enter") {
-      handleClickSearch()
-    }
-  }
-  
-  useEffect(() => {
-    if (isOpen) return
-    addEventListener('keyup', validateEnter)
-    inputRef.current.focus()
-
-    return () => {
-      removeEventListener('keyup', validateEnter)
-    }
-  }, [isOpen, inputRef])
 
   return (
-    <div hidden={isOpen} onClick={handleClose} className={`bg-black/50 absolute opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity duration-300`}>
-      <dialog open className="bg-transparent">
-        <main className="my-20 flex flex-col gap-2 h-full">
-          <div className="bg-slate-700 flex flex-row gap-5 text-white mx-auto box-border drop-shadow-lg backdrop-blur-xl hover:bg-slate-800 focus:bg-slate-800 rounded-full px-5 py-3 text-lg transition-colors duration-200">
-            <input autoFocus={true} onChange={handleOnChangeInput} ref={inputRef} onClick={handleClickInput} className="bg-transparent min-h-full min-w-96 outline-none" type="text" placeholder="Buscar: ejemplo - Londres, México, Perú" />
-            <img onClick={handleClickSearch} className="cursor-pointer" src="/src/assets/search-32.png" alt="" />
-          </div>
-          <SearchAlert text={textAlert} showAlert={showAlert} alertOpacity={alertOpacity} />
-        </main>
-      </dialog>
-    </div>
+    <dialog open className={`bg-black/50 absolute opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity`}>
+      <span className="text-slate-500 bottom-2 left-3 absolute text-sm">{`Presione 'Esc' para salir`}</span>
+      <button onClick={handleClose} className="text-white/50 absolute right-3 text-5xl hover:text-white transition-colors">×</button>
+      <main className="my-20 flex flex-col gap-2 h-full">
+        <form onSubmit={handleSubmitSearch} className="bg-slate-700 flex flex-row text-white mx-auto box-border drop-shadow-lg backdrop-blur-xl rounded-full transition-colors duration-200">
+          <input autoFocus={true} name="busqueda" onChange={handleOnChangeInput} onClick={handleClickInput} className="bg-transparent min-h-full px-5 min-w-96 text-lg outline-none" type="text" placeholder="Londres, México, Perú ..." />
+          <button className="border-l border-white/10 hover:bg-slate-900 rounded-r-full px-5 py-3 transition-colors cursor-pointer">
+            <img width={28} height={28} src="/src/assets/search-32.png" alt="search-32.png" />
+          </button>
+        </form>
+        <SearchAlert text={textAlert} showAlert={showAlert} alertOpacity={alertOpacity} />
+      </main>
+    </dialog>
   )
 }

@@ -2,25 +2,25 @@ import { useEffect, useState } from "react"
 import { getWeatherByCityName } from "../WeatherByCityName"
 import { getForecastByLonLat } from "../ForecastByLonLat"
 
-export const useClima = () => {
+export const useClima = ({ cityName }) => {
   const [objClima, setObjClima] = useState({})
   const [objForecast, setObjForecast] = useState({})
   
-  const query = async (city) => {
-    const response = await getWeatherByCityName(city)
+  const query = async ({city, lat, lon}) => {
+    const response = city ? await getWeatherByCityName({city}) : await getWeatherByCityName({lat, lon})
     if (response.status === 404 || response.status === 500) {
       console.log('Estado: ', response.status)
-      return response.status
+      return response
     }
     getForecastByLonLat({ lat: response.coord.lat, lon: response.coord.lon }).then(setObjForecast)
     setObjClima(response)
-    return response.status
+    return response
   }
 
   useEffect(() => {
-    getWeatherByCityName('Londres').then(setObjClima)
-    getForecastByLonLat({ lat: 51.50853, lon: -0.125740}).then(setObjForecast)
-  }, [])
+    getWeatherByCityName({ city: cityName }).then(setObjClima)
+    getForecastByLonLat({ city: cityName } || { lat: 51.50853, lon: -0.125740}).then(setObjForecast)
+  }, [cityName])
 
   return { res: objClima, resForecast: objForecast, query }
 }

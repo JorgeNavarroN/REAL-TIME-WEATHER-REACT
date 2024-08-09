@@ -1,5 +1,6 @@
-export const getWeatherByCityName = async (city) => {
-  const res = await fetch(`/api/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_API_KEY}&units=metric&lang=es`)
+export const getWeatherByCityName = async ({ city, lat, lon }) => {
+  console.log(`/api/data/2.5/weather?${ city ? `q=${city}` : `lat=${lat}&lon=${lon}`}&appid=${import.meta.env.VITE_API_KEY}&units=metric&lang=es`)
+  const res = await fetch(`/api/data/2.5/weather?${ city ? `q=${city}` : `lat=${lat}&lon=${lon}`}&appid=${import.meta.env.VITE_API_KEY}&units=metric&lang=es`)
   console.log('CARNE DE RES: ', res.status)
   const json = await res.json().catch(() => {
     return { status: res.status }
@@ -18,6 +19,7 @@ export const getWeatherByCityName = async (city) => {
     clouds: json?.clouds?.all,
     weather: json?.weather?.shift(),
     timezone: json?.timezone,
-    ubic: json?.name + ' - ' + json?.sys?.country
+    city: json?.name,
+    ubic: `${json?.name} ${json?.sys?.country ? ' - ' + json?.sys?.country : ''}`
   }
 }

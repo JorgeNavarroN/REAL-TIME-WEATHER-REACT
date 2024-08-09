@@ -51,7 +51,7 @@ const listDayForecast = [
 export const LineForecast = ({ nameClass, daysForecast }) => {
     return (
         <Container nameClass={nameClass} expandir>
-            <section className="px-10 py-5 rounded-lg place-content-center">
+            <section className="px-5 rounded-lg place-content-center">
                 <ul className="text-md flex gap-x-10 gap-y-5 place-content-between">
                     {daysForecast?.days?.map(({ id, day, temp, clima, icon}) => {
                         return <DayForecast key={id} day={capitalizarTexto(day)} temp={temp} clima={capitalizarTexto(clima)} icon={icon} />

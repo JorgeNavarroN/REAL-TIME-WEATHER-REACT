@@ -29,8 +29,8 @@ export const Weather = ({ nameClass, objClima }) => {
         <Container nameClass={nameClass} expandir>
             <section className="flex flex-col gap-5 place-content-between h-full w-full p-7">
                 <span className="flex gap-x-2 items-center">
-                    <p className="text-2xl">{objClima.ubic}</p>
-                    <img src="/src/assets/location-32.png" alt="location.png" />
+                    <img src="/src/assets/gps-40.png" alt="location.png" />
+                    <p className="text-2xl">{objClima.ubic || 'Globe' }</p>
                 </span>
                 <p className="text-8xl">{Math.round(objClima.temp)}°C</p>
                 <span className="text-4xl">{objClima.feels_like}°C</span>
