@@ -1,5 +1,3 @@
-import { useCoordsCurrentLocation } from "../services/utils/hooks/UseCurrentLocation"
-
 export const Buscador = ({ onClickOpen, handleClickGeoLocation }) => {
     return (
         <div className="flex flex-row gap-2">

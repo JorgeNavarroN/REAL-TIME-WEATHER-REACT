@@ -12,7 +12,6 @@ export function useCoordsCurrentLocation() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(handleSucces)
-    console.log("Coordenadas: ", coords)
   }, [])
   return coords.current
 }

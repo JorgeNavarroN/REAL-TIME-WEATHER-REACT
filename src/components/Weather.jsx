@@ -27,7 +27,7 @@ const getWindDirection = (deg) => {
 export const Weather = ({ nameClass, objClima }) => {
     return (
         <Container nameClass={nameClass} expandir>
-            <section className="flex flex-col gap-5 place-content-between h-full w-full p-7">
+            <section className="flex flex-col gap-5 place-content-between h-full w-full p-7 transition-all">
                 <span className="flex gap-x-2 items-center">
                     <img src="/src/assets/gps-40.png" alt="location.png" />
                     <p className="text-2xl">{objClima.ubic || 'Globe' }</p>
