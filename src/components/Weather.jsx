@@ -1,4 +1,10 @@
 import { capitalizarTexto } from "../services/utils/CapitalizarTexto";
+import gps40 from "../assets/gps-40.png"
+import wind32 from "../assets/wind-32.png"
+import wet32 from "../assets/wet-32.png"
+import clouds50 from "../assets/clouds-50.png"
+import compass32 from "../assets/compass-north-32.png"
+
 import { Container } from "./Container";
 import PropTypes from 'prop-types'
 
@@ -29,7 +35,7 @@ export const Weather = ({ nameClass, objClima }) => {
         <Container nameClass={nameClass} expandir>
             <section className="flex flex-col gap-5 place-content-between h-full w-full p-7 transition-all">
                 <span className="flex gap-x-2 items-center">
-                    <img src="/src/assets/gps-40.png" alt="location.png" />
+                    <img src={gps40} alt="location.png" />
                     <p className="text-2xl">{objClima.ubic || 'Globe' }</p>
                 </span>
                 <p className="text-8xl">{Math.round(objClima.temp)}°C</p>
@@ -41,18 +47,18 @@ export const Weather = ({ nameClass, objClima }) => {
                     <li className="col-start-1 grid gap-y-2">
                         <span className="max-sm:text-sm">Viento:</span>
                         <span className="flex col-start-1 row-start-2 gap-2 place-content-center items-center">
-                            <img src="/src/assets/wind-32.png" alt="wind.png" />
+                            <img src={wind32} alt="wind.png" />
                             <p className="text-lg max-sm:text-base">{objClima?.wind?.speed}m/s</p>
                         </span>
                         <span className="flex gap-x-5 place-content-center items-center">
-                            <img style={{transform: `rotate(${objClima?.wind?.deg}deg)`}} src="/src/assets/compass-north-32.png" alt="compass.png" />
+                            <img style={{transform: `rotate(${objClima?.wind?.deg}deg)`}} src={compass32} alt="compass.png" />
                             <p className="text-xl max-sm:text-xs col-span-2 col-start-1 row-start-3">{getWindDirection(objClima?.wind?.deg)}</p>
                         </span>
                     </li>
                     <li className="col-start-2 grid">
                         <span className="max-sm:text-sm">Humedad:</span>
                         <span className="flex gap-x-5 place-content-center items-center">
-                            <img className="min-h-fit my-auto" src="/src/assets/wet-32.png" alt="wind.png" />
+                            <img className="min-h-fit my-auto" src={wet32} alt="wind.png" />
                             <p className="text-3xl max-sm:text-lg">{objClima.humidity}%</p>
                         </span>
                     </li>
@@ -67,14 +73,14 @@ export const Weather = ({ nameClass, objClima }) => {
                     <li className="grid gap-5">
                         <span className="max-sm:text-sm">Nubosidad:</span>
                         <span className="flex gap-x-2 place-content-center items-center">
-                            <img src="/src/assets/clouds-50.png" alt="wind.png" />
+                            <img src={clouds50} alt="wind.png" />
                             <p className="text-3xl max-sm:text-xl grid place-content-center">{objClima.clouds}%</p>
                         </span>
                     </li>
                     <li className="grid gap-5">
                         <span className="max-sm:text-sm">Clima:</span>
                         <span className="flex gap-x-2 place-content-center items-center">
-                            <img className="col-start-1" src={`http://openweathermap.org/img/wn/${objClima?.weather?.icon}.png`} alt="" />
+                            <img className="col-start-1" src={`http://openweathermap.org/img/wn/${objClima?.weather?.icon}.png`} alt={objClima?.weather?.description} />
                             <p className="text-xl max-sm:text-sm place-content-center col-start-2">{capitalizarTexto(objClima?.weather?.description)}</p>
                         </span>
                     </li>
