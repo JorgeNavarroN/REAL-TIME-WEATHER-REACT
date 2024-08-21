@@ -14,14 +14,14 @@ function App() {
 
   return (
     <Background dateTime={dateTime} timezone={res.timezone}>
-      <Weather nameClass="col-start-1 col-span-2 row-span-2" objClima={res} />
-      <LineForecast daysForecast={resForecast} nameClass="row-start-3 col-span-3 p-7" expandir></LineForecast>
-      <article className="col-start-3 flex row-span-2 flex-col gap-5 h-full w-full">
+      <article className="xl:col-start-2 flex xl:row-span-2 xl:row-start-1 flex-col gap-5 h-full w-full">
         <Buscador onClickOpen={handleOpen} handleClickGeoLocation={handleBuscarUbicacionActual} />
-        <Container nameClass={'p-7'} expandir>
+        <Container nameClass={'p-7 justify-center'} expandir>
           <Reloj timezone={res.timezone} />
         </Container>
       </article>
+      <Weather nameClass="xl:col-start-1 xl:row-start-1 xl:row-span-2" objClima={res} />
+      <LineForecast daysForecast={resForecast} nameClass="xl:col-start-1 xl:col-span-2 grid p-7" expandir></LineForecast>
       {!isOpen && <BuscadorModal opacity={opacity} handleClose={handleClose} handleSearch={handleBuscar} />}
     </Background>
   )

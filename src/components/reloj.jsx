@@ -10,8 +10,8 @@ export const Reloj = ({ timezone = 3600 }) => {
 
     return (
         <section className='flex flex-col items-center gap-5 px-10'>
-            <p className='text-white text-8xl'>{dateTimeOfLocate.toLocaleTimeString(undefined, optionsTime)}</p>
-            <p className='text-white text-4xl'>{dateTimeOfLocate.toLocaleDateString(undefined, optionsDate)}</p>
+            <p className='text-white text-8xl max-sm:text-6xl'>{dateTimeOfLocate.toLocaleTimeString(undefined, optionsTime)}</p>
+            <p className='text-white text-4xl max-sm:text-lg'>{dateTimeOfLocate.toLocaleDateString(undefined, optionsDate)}</p>
         </section>
     )
 }

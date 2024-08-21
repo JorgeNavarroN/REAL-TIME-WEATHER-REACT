@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useClima } from "./UseClima"
 import { useCoordsCurrentLocation } from "./UseCurrentLocation"
 import { useLocalstorage } from "./UseLocalStorage"
@@ -15,12 +15,12 @@ export const useBuscador = () => {
     setTimeout(() => setOpacity(100))
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpacity(0)
     setTimeout(() => {
       setIsOpen(!isOpen)
     }, 300)
-  }
+  }, [isOpen])
 
   const handleBuscar = async ({ busqueda }) => {
     if (busqueda === '') {
@@ -45,10 +45,10 @@ export const useBuscador = () => {
     return { err: res.status }
   }
 
-  const validateKey = (event) => {
+  const validateKey = useCallback((event) => {
     const tecla = event.key
     if (tecla === "Escape") handleClose()
-  }
+  }, [handleClose])
 
   useEffect(() => {
     if (isOpen) return
@@ -56,7 +56,7 @@ export const useBuscador = () => {
     return () => {
       removeEventListener('keyup', validateKey)
     }
-  }, [isOpen])
+  }, [isOpen, validateKey])
 
   return { res, resForecast, isOpen, opacity, handleBuscar, handleBuscarUbicacionActual, handleOpen, handleClose }
 }

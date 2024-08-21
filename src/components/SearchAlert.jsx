@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export const SearchAlert = ({ text, showAlert, alertOpacity }) => {
   return (
     <div hidden={showAlert} className={`opacity-${alertOpacity} transition-all duration-200`}>
@@ -7,4 +9,10 @@ export const SearchAlert = ({ text, showAlert, alertOpacity }) => {
       </span>
     </div>
   )
+}
+
+SearchAlert.propTypes = {
+  text: PropTypes.string.isRequired,
+  showAlert: PropTypes.bool.isRequired,
+  alertOpacity: PropTypes.number.isRequired,
 }
