@@ -4,7 +4,7 @@ import search from "../assets/search-32.png"
 import '../index.css'
 import PropTypes from 'prop-types'
 
-export const BuscadorModal = ({ nameClass, opacity, handleClose, handleSearch }) => {
+export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
   const { textAlert, showAlert, alertOpacity, handleHideAlert, handleShowAlert } = useAlert()
 
   const handleClickInput = (e) => e.stopPropagation()
@@ -39,7 +39,7 @@ export const BuscadorModal = ({ nameClass, opacity, handleClose, handleSearch })
   }
 
   return (
-    <dialog open className={`bg-black/50 absolute opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity ${nameClass}`}>
+    <dialog open className={`bg-black/50 absolute opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity`}>
       <span className="text-slate-500 bottom-2 left-3 absolute text-sm">{`Presione 'Esc' para salir`}</span>
       <button onClick={handleClose} className="text-white/50 absolute right-3 text-5xl hover:text-white transition-colors">×</button>
       <main className="my-20 flex flex-col gap-2 h-full">
