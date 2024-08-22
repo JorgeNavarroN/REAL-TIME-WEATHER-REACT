@@ -8,7 +8,7 @@ Aplicación web para visualizar el clima actual y los pronosticos para los 5 dia
 
 ![image](https://github.com/user-attachments/assets/f58747d1-defa-43dd-bc59-ad80ca4872df)
 
-![image](https://github.com/user-attachments/assets/9b41e757-c261-4795-8e7c-4c8311b948a8)
+![image](https://github.com/user-attachments/assets/a94afea4-abc9-4e1d-b157-e889ac02b79c)
 
 ![image](https://github.com/user-attachments/assets/b4344c38-3389-4fa2-9a79-8d9fab770d7a)
 
