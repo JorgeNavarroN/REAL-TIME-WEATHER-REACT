@@ -1,6 +1,6 @@
 # WaveWeather
 
-Aplicación web para visualizar el clima actual y los pronosticos para los 5 dias posteriores de diferentes ciudades, incluyendo la ubicación actual.
+Aplicación web para visualizar el clima actual y los pronosticos para los 5 dias posteriores de diferentes ciudades, incluyendo la ubicación actual. Utilizando React y Tailwindcss, con conexion a la API de OpenWeatherMap.
 
 Puedes probar la web ingresando a: https://waveweather.netlify.app/
 
