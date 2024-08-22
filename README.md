@@ -2,6 +2,8 @@
 
 Aplicación web para visualizar el clima actual y los pronosticos para los 5 dias posteriores de diferentes ciudades, incluyendo la ubicación actual.
 
+Puedes probar la web ingresando a: https://waveweather.netlify.app/
+
 # ScreenShots
 
 ![image](https://github.com/user-attachments/assets/14d48934-c090-42cb-acef-335aad935a28)
