@@ -37,6 +37,7 @@ export const Weather = ({ nameClass, objClima }) => {
                 <span className="flex gap-x-2 items-center">
                     <img src={gps40} alt="location.png" />
                     <p className="text-2xl">{objClima.ubic || 'Globe' }</p>
+                    <img src={`https://flagsapi.com/${objClima.country}/flat/64.png`} width={32} height={32} alt="" />
                 </span>
                 <p className="text-8xl">{Math.round(objClima.temp)}°C</p>
                 <span className="text-4xl">{objClima.feels_like}°C</span>

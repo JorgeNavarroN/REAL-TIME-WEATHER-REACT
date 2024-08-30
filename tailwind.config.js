@@ -35,7 +35,11 @@ export default {
     'opacity-0'
   ],
   theme: {
-    extend: {}
+    extend: {
+      width: {
+        '110': '32rem'
+      }
+    }
   },
   plugins: [],
 }

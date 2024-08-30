@@ -1,15 +1,15 @@
 import { useState } from "react"
 
 export function useLocalstorage () {
-  const [saveCityName, setSaveCityName] = useState(() => {
-    const savedCity = localStorage.getItem('cityName')
-    return savedCity ? JSON.parse(savedCity).city : 'London'
+  const [savedCoords, setSaveCoords] = useState(() => {
+    const saved = localStorage.getItem('waveweatherstorage')
+    return saved ? JSON.parse(saved).coords : { lat: 51.50853, lon: -0.125740 }
   })
 
-  const handleSaveCityName = ({ cityName }) => {
-    localStorage.setItem('cityName', JSON.stringify({ city: cityName }))
-    setSaveCityName(cityName)
+  const handleSaveCityName = ({ cityName, coords }) => {
+    localStorage.setItem('waveweatherstorage', JSON.stringify({ city: cityName, coords }))
+    setSaveCoords(coords)
   }
 
-  return [saveCityName, handleSaveCityName]
+  return [savedCoords, handleSaveCityName]
 }

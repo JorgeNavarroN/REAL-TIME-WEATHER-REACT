@@ -18,6 +18,7 @@ export const getWeatherByCityName = async ({ city, lat, lon }) => {
     weather: json?.weather?.shift(),
     timezone: json?.timezone,
     city: json?.name,
-    ubic: `${json?.name} ${json?.sys?.country ? ' - ' + json?.sys?.country : ''}`
+    ubic: `${json?.name} ${json?.sys?.country ? ' - ' + json?.sys?.country : ''}`,
+    country: json?.sys?.country
   }
 }

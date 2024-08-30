@@ -3,14 +3,46 @@ import { SearchAlert } from "./SearchAlert"
 import search from "../assets/search-32.png"
 import '../index.css'
 import PropTypes from 'prop-types'
+import { SearchResultsCoincidence } from "./SearchResultsCoincidence"
+import { useCallback, useState } from "react"
+import debounce from "just-debounce-it"
 
 export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
   const { textAlert, showAlert, alertOpacity, handleHideAlert, handleShowAlert } = useAlert()
 
+  const [existCoincidence, setExistCoincidence] = useState(false)
+  const [responseCoincidence, setResponseCoincidence] = useState({})
+
+  const debouncedHandleSearch = useCallback(debounce(search => {
+    getResultsCoincidence({ search })
+  }, 100), [])
+
+  const handleClickElement = useCallback(async (coords) => {
+    await handleSearch({ coord: coords })
+  }, [handleSearch])
+
+  const getResultsCoincidence = useCallback(({ search }) => {
+    if (search.length > 2) {
+      fetch(`/api/data/2.5/find?q=${search}&appid=${import.meta.env.VITE_API_KEY}&units=metric`)
+        .then(response => response.json())
+        .then(json => {
+          setResponseCoincidence(json)
+          console.log('Json: ', json);
+        })
+    }
+  }, [])
+
   const handleClickInput = (e) => e.stopPropagation()
 
   const handleOnChangeInput = (e) => {
-    if (e.target.value.length > 1) return handleHideAlert()
+    const busqueda = e.target.value
+    if (busqueda.length > 2) {
+      setExistCoincidence(true);
+      debouncedHandleSearch(busqueda)
+      handleHideAlert()
+      return
+    }
+    setExistCoincidence(false);
     handleShowAlert('Debe ingresar el nombre de una ciudad valida')
   }
 
@@ -39,17 +71,22 @@ export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
   }
 
   return (
-    <dialog open className={`bg-black/50 absolute opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity`}>
+    <dialog open className={`bg-black/50 fixed opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity`}>
       <span className="text-slate-500 bottom-2 left-3 absolute text-sm">{`Presione 'Esc' para salir`}</span>
       <button onClick={handleClose} className="text-white/50 absolute right-3 text-5xl hover:text-white transition-colors">×</button>
-      <main className="my-20 flex flex-col gap-2 h-full">
-        <form onSubmit={handleSubmitSearch} className="bg-slate-700 flex flex-row text-white mx-auto box-border drop-shadow-lg backdrop-blur-xl rounded-full transition-colors duration-200">
-          <input style={{}} autoFocus={true} name="busqueda" onChange={handleOnChangeInput} onClick={handleClickInput} className="bg-transparent min-h-full px-5 min-w-96 text-lg max-sm:text-sm max-sm:min-w-60 outline-none" type="text" placeholder="Londres, México, Perú ..." />
-          <button className="border-l border-white/10 hover:bg-slate-900 rounded-r-full px-5 py-3 transition-colors cursor-pointer">
-            <img width={28} height={28} src={search} alt="search-32.png" />
-          </button>
+      <main className="my-20 flex flex-col items-center h-full">
+        <form onSubmit={handleSubmitSearch} className="flex flex-col shadow-lg shadow-black/60 rounded-[1.5rem] overflow-hidden">
+          <SearchAlert text={textAlert} showAlert={showAlert} alertOpacity={alertOpacity} />
+          <div className="bg-slate-700 flex flex-row text-white mx-auto box-border drop-shadow-lg backdrop-blur-xl transition-colors duration-200">
+            <input autoFocus={true} name="busqueda" onChange={handleOnChangeInput} onClick={handleClickInput} className="bg-transparent min-h-full px-5 min-w-96 text-lg max-sm:text-sm max-sm:min-w-60 outline-none" type="text" placeholder="Londres, México, Perú ..." />
+            <button className="border-l border-white/10 hover:bg-slate-900 px-5 py-3 transition-colors cursor-pointer">
+              <img width={28} height={28} src={search} alt="search-32.png" />
+            </button>
+          </div>
+
+          {/* Componente de las coincidencias de busqueda.*/}
+          {existCoincidence && <SearchResultsCoincidence results={responseCoincidence.list} handleClickElement={handleClickElement} />}
         </form>
-        <SearchAlert text={textAlert} showAlert={showAlert} alertOpacity={alertOpacity} />
       </main>
     </dialog>
   )
@@ -58,6 +95,5 @@ export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
 BuscadorModal.propTypes = {
   opacity: PropTypes.number.isRequired,
   handleClose: PropTypes.func.isRequired,
-  handleSearch: PropTypes.func.isRequired,
-  nameClass: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired
 }

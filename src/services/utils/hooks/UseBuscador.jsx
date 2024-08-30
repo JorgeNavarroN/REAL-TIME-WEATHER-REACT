@@ -4,9 +4,9 @@ import { useCoordsCurrentLocation } from "./UseCurrentLocation"
 import { useLocalstorage } from "./UseLocalStorage"
 
 export const useBuscador = () => {
-  const [saveCityName, handleSaveCityName] = useLocalstorage()
+  const [savedCoords, handleSaveCityName] = useLocalstorage()
   const coords = useCoordsCurrentLocation()
-  const { res, resForecast, query } = useClima({ cityName: saveCityName})
+  const { res, resForecast, query } = useClima({ coords: savedCoords})
   const [isOpen, setIsOpen] = useState(true)
   const [opacity, setOpacity] = useState(0)
 
@@ -22,28 +22,28 @@ export const useBuscador = () => {
     }, 300)
   }, [isOpen])
 
-  const handleBuscar = async ({ busqueda }) => {
+  const handleBuscar = useCallback(async ({ busqueda, coord }) => {
     if (busqueda === '') {
       return { err: 'isEmpty' }
     }
-    const res = await query({city: busqueda})
+    const res = busqueda ? await query({ cityName: busqueda }) : await query({ lat: coord.lat, lon: coord.lon })
     if (res.status === 404 || res.status === 500) {
       return { err: res.status }
     }
     handleClose()
-    handleSaveCityName({ cityName: busqueda })
+    handleSaveCityName({ cityName: res.city, coords: res.coord })
     return { err: res.status }
-  }
+  }, [handleClose, handleSaveCityName, query]);
 
-  const handleBuscarUbicacionActual = async () => {
+  const handleBuscarUbicacionActual = useCallback(async () => {
     if (!coords) return
     const res = await query({lat: coords.lat, lon: coords.lon})
     if (res.status === 404 || res.status === 500) {
       return { err: res.status }
     }
-    handleSaveCityName({ cityName: res.city })
+    handleSaveCityName({ cityName: res.city, coords: res.coord  })
     return { err: res.status }
-  }
+  }, [coords, handleSaveCityName, query])
 
   const validateKey = useCallback((event) => {
     const tecla = event.key

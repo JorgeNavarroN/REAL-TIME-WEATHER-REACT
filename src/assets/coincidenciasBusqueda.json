@@ -1,0 +1,206 @@
+{
+  "message": "accurate",
+  "cod": "200",
+  "count": 5,
+  "list": [
+      {
+          "id": 3706410,
+          "name": "Las Lomas",
+          "coord": {
+              "lat": 8.4333,
+              "lon": -82.4
+          },
+          "main": {
+              "temp": 31.67,
+              "feels_like": 36.9,
+              "temp_min": 30.78,
+              "temp_max": 31.67,
+              "pressure": 1010,
+              "humidity": 62,
+              "sea_level": 1010,
+              "grnd_level": 1002
+          },
+          "dt": 1724873236,
+          "wind": {
+              "speed": 4.63,
+              "deg": 210
+          },
+          "sys": {
+              "country": "PA"
+          },
+          "rain": {
+              "1h": 0.29
+          },
+          "snow": null,
+          "clouds": {
+              "all": 40
+          },
+          "weather": [
+              {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "light rain",
+                  "icon": "10d"
+              }
+          ]
+      },
+      {
+          "id": 3695552,
+          "name": "Las Lomas",
+          "coord": {
+              "lat": -4.6533,
+              "lon": -80.2467
+          },
+          "main": {
+              "temp": 31.17,
+              "feels_like": 30.58,
+              "temp_min": 31.17,
+              "temp_max": 31.17,
+              "pressure": 1010,
+              "humidity": 36,
+              "sea_level": 1010,
+              "grnd_level": 983
+          },
+          "dt": 1724873235,
+          "wind": {
+              "speed": 3.77,
+              "deg": 223
+          },
+          "sys": {
+              "country": "PE"
+          },
+          "rain": null,
+          "snow": null,
+          "clouds": {
+              "all": 6
+          },
+          "weather": [
+              {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "clear sky",
+                  "icon": "01d"
+              }
+          ]
+      },
+      {
+          "id": 4705417,
+          "name": "Las Lomas",
+          "coord": {
+              "lat": 26.3648,
+              "lon": -98.7753
+          },
+          "main": {
+              "temp": 35.67,
+              "feels_like": 37.85,
+              "temp_min": 34.87,
+              "temp_max": 36.11,
+              "pressure": 1012,
+              "humidity": 38,
+              "sea_level": 1012,
+              "grnd_level": 1006
+          },
+          "dt": 1724873422,
+          "wind": {
+              "speed": 5.87,
+              "deg": 83
+          },
+          "sys": {
+              "country": "US"
+          },
+          "rain": null,
+          "snow": null,
+          "clouds": {
+              "all": 85
+          },
+          "weather": [
+              {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "overcast clouds",
+                  "icon": "04d"
+              }
+          ]
+      },
+      {
+          "id": 5365203,
+          "name": "Las Lomas",
+          "coord": {
+              "lat": 36.8652,
+              "lon": -121.7349
+          },
+          "main": {
+              "temp": 26.62,
+              "feels_like": 26.62,
+              "temp_min": 20.67,
+              "temp_max": 31.5,
+              "pressure": 1014,
+              "humidity": 51,
+              "sea_level": 1014,
+              "grnd_level": 1012
+          },
+          "dt": 1724873473,
+          "wind": {
+              "speed": 3.35,
+              "deg": 245
+          },
+          "sys": {
+              "country": "US"
+          },
+          "rain": null,
+          "snow": null,
+          "clouds": {
+              "all": 2
+          },
+          "weather": [
+              {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "clear sky",
+                  "icon": "01d"
+              }
+          ]
+      },
+      {
+          "id": 3706409,
+          "name": "Las Lomas",
+          "coord": {
+              "lat": 8.5,
+              "lon": -80.3833
+          },
+          "main": {
+              "temp": 30.79,
+              "feels_like": 35.66,
+              "temp_min": 30.62,
+              "temp_max": 32.56,
+              "pressure": 1009,
+              "humidity": 65,
+              "sea_level": 1009,
+              "grnd_level": 1001
+          },
+          "dt": 1724873236,
+          "wind": {
+              "speed": 3.58,
+              "deg": 3
+          },
+          "sys": {
+              "country": "PA"
+          },
+          "rain": {
+              "1h": 0.85
+          },
+          "snow": null,
+          "clouds": {
+              "all": 99
+          },
+          "weather": [
+              {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "light rain",
+                  "icon": "10d"
+              }
+          ]
+      }
+  ]
+}
