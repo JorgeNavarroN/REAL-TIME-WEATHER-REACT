@@ -1,24 +1,38 @@
 import { useAlert } from "../services/utils/hooks/UseAlert"
 import { SearchAlert } from "./SearchAlert"
 import search from "../assets/search-32.png"
+import loading_moon from '../assets/gif/loading_moon.gif'
+import loading_sun from '../assets/gif/loading-sun.gif'
 import '../index.css'
 import PropTypes from 'prop-types'
 import { SearchResultsCoincidence } from "./SearchResultsCoincidence"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import debounce from "just-debounce-it"
+
+const loadingArray = [loading_moon, loading_sun];
+
+const getRandomGifLoading = () => {
+  return loadingArray[Math.floor(Math.random() * loadingArray.length)]
+}
 
 export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
   const { textAlert, showAlert, alertOpacity, handleHideAlert, handleShowAlert } = useAlert()
 
   const [existCoincidence, setExistCoincidence] = useState(false)
   const [responseCoincidence, setResponseCoincidence] = useState({})
+  
+  const [gifLoading, setGifLoading] = useState(getRandomGifLoading());
 
+  const [isLoading, setIsLoading] = useState(false)
   const debouncedHandleSearch = useCallback(debounce(search => {
     getResultsCoincidence({ search })
   }, 100), [])
 
   const handleClickElement = useCallback(async (coords) => {
+    setGifLoading(getRandomGifLoading())
+    setIsLoading(true)
     await handleSearch({ coord: coords })
+    setIsLoading(false)
   }, [handleSearch])
 
   const getResultsCoincidence = useCallback(({ search }) => {
@@ -48,10 +62,13 @@ export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
 
   const handleSubmitSearch = async (e) => {
     e.preventDefault()
+    setGifLoading(getRandomGifLoading())
+    setIsLoading(true)
     const formData = new window.FormData(e.target)
     const busqueda = formData.get('busqueda')
 
     const res = await handleSearch({ busqueda })
+    setIsLoading(false)
     if (res.err === 404) {
       handleShowAlert('Ciudad no encontrada, ingrese nuevamente')
       return
@@ -73,6 +90,11 @@ export const BuscadorModal = ({ opacity, handleClose, handleSearch }) => {
   return (
     <dialog open className={`bg-black/50 fixed opacity-${opacity} top-0 left-0 w-full min-h-screen backdrop-blur-sm transition-opacity`}>
       <span className="text-slate-500 bottom-2 left-3 absolute text-sm">{`Presione 'Esc' para salir`}</span>
+      {
+        isLoading && 
+        <span className="text-slate-500 bottom-5 right-6 absolute text-xl">
+          <img src={gifLoading} width={80} height={80} alt="loading.gif" />
+        </span>}      
       <button onClick={handleClose} className="text-white/50 absolute right-3 text-5xl hover:text-white transition-colors">×</button>
       <main className="my-20 flex flex-col items-center h-full">
         <form onSubmit={handleSubmitSearch} className="flex flex-col shadow-lg shadow-black/60 rounded-[1.5rem] overflow-hidden">

@@ -32,7 +32,8 @@ export default {
     'bg-opacity-0',
     'bg-opacity-100',
     'opacity-100',
-    'opacity-0'
+    'opacity-0',
+    'truncate'
   ],
   theme: {
     extend: {
